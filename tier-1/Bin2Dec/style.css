@@ -9,6 +9,11 @@ body {
     gap: 12px;
 }
 
+#errorTag {
+    color: red;
+    visibility: hidden;
+}
+
 .inOutContainer input {
     border-radius: 12px;
     font-size: 1em;

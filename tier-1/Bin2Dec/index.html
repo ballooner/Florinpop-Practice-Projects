@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin2Dec Converter</title>
     <link rel="stylesheet" href="style.css">
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
 </head>
 <body>
     <div class="inOutContainer">
         <h1>Input:</h1>
         <form>
-            <input type="number">
+            <input id="input">
         </form>
+        <p id="errorTag">Error: Input can only contain "1" and "0"</p>
     </div>
 
     <div class="inOutContainer">
         <h1>Output:</h1>
         <form action="">
-            <input type="number">
+            <input id="output">
         </form>
     </div>
 
     <div id="buttonContainer">
-        <button>Clear</button>
-        <button>Convert</button>
+        <button id="clearButton">Clear</button>
+        <button id="convertButton">Convert</button>
     </div>
 </body>
 </html>
