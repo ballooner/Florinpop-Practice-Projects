@@ -1,0 +1,22 @@
+body {
+    background-color: #1f1f1f;
+}
+
+.inOutContainer {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.inOutContainer input {
+    border-radius: 12px;
+    font-size: 1em;
+    width: 25vw;
+}
+
+#buttonContainer button {
+    border-radius: 12px;
+    width: 5vw;
+    height: 3vh;
+}
