@@ -1,0 +1,19 @@
+body {
+    background-color: #1f1f1f;
+}
+
+#display-box {
+    height: 30vh;
+    width: 30vw;
+    background-color: gray;
+}
+
+#container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2%;
+}
