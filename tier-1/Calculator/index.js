@@ -44,6 +44,11 @@ function numberHandler(e) {
         return;
     }
 
+    if (buttonText === "+/-" && display.textContent !== "0" && display.textContent !== "") {
+        display.textContent *= -1;
+        return;
+    }
+
     if (display.textContent === "0") {
         display.textContent = buttonText;
     } else {
@@ -74,13 +79,26 @@ function mathOperationHandler(e) {
 }
 
 function memoryOperationHandler(e) {
-
+    let buttonText = e.target.textContent;
+    let displayText = display.textContent;
+    
+    if (buttonText === "C" && displayText === "" && memoryStack.length === 2) {
+        display.textContent = memoryStack[0];
+        memoryStack = [];
+    } else if (buttonText === "C") {
+        display.textContent = "";
+    } else if (buttonText === "AC") {
+        display.textContent = "0";
+        memoryStack = [];
+    }
 }
 
 for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].textContent.match(/[1-9]/) !== null) {
+    if (buttons[i].textContent.match(/[1-9]|\+\/-/) !== null) {
         buttons[i].addEventListener("click", numberHandler);
     } else if (buttons[i].textContent.match(/[%/x\-+=]/) !== null) {
         buttons[i].addEventListener("click", mathOperationHandler);
+    } else if (buttons[i].textContent.match(/AC|C/) !== null) {
+        buttons[i].addEventListener("click", memoryOperationHandler);
     }
 }
