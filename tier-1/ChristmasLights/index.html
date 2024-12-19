@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Lights</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <div id="christmas-lights">
+            <div class="row">
+                <span class="light"></span>
+                <span class="light"></span>
+                <span class="light"></span>
+                <span class="light"></span>
+                <span class="light"></span>
+            </div>
+        </div>
+
+        <div id="light-controls">
+            <form action="" id="general-controls" class="control-form">
+                <input type="button" id="start-stop" value="Start/Stop">
+                <label for="rows">Rows: <output id="row-value"></output></label>
+                <input type="range" id="row-input" name="rows" min="1" max="5" value="1">
+                <label for="interval">Interval (seconds): <output id="interval-value"></output></label>
+                <input type="range" id="interval-input" name="interval" min="1" max="10" value="5">
+            </form>
+            
+            <form action="" id="specific-controls" class="control-form">
+                <label for="color">Color: </label>
+                <input type="color" id="color-input" name="color" value="#e66465">
+                <label for="intenstiy">Intensity: </label>
+                <input type="range" id="intensity-input" name="intensity" min="1" max="10" value="1">
+                <label for="size">Size: </label>
+                <input type="range" id="range-input" name="size" min="50" max="100" value="50">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
