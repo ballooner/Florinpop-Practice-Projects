@@ -1,3 +1,54 @@
+//Light class to hold information for individual lights
+class Light {
+    #currentIntensity = 0;
+
+    constructor(buttonElement, color = "red", size = 50, maxIntensity = 25) {
+        this.buttonElement = buttonElement;
+        this.color = color;
+        this.size = size;
+        this.maxIntensity = maxIntensity;
+    }
+
+    getColor() {
+        return this.color;
+    }
+
+    setColor(color) {
+        this.color = color;
+    }
+
+    getSize() {
+        return this.size;
+    }
+
+    setSize(size) {
+        this.size = size;
+    }
+
+    getMaxIntensity() {
+        return this.maxIntensity;
+    }
+
+    setMaxIntensity(maxIntensity) {
+        this.maxIntensity = maxIntensity;
+    }
+
+    //Method to slowly increase the intensity and set box-shadow styling
+    increaseIntensity() {
+        currentIntensity += maxIntensity / interval;
+        this.buttonElement.style.setProperty("box-shadow", "0px 0px 75px " + currentIntensity);
+    }
+}
+
+//Create the array that holds light classes
+//and create classes for already existing light elements in DOM
+let lightArray = [];
+let currLights = document.querySelectorAll(".light");
+
+for (let i = 0; i < currLights.length; i++) {
+    lightArray.push(new Light(currLights[i]));
+}
+
 //Declare row element variables and make HTML output row range values
 let rowRange = document.querySelector("#row-input");
 let rowOutput = document.querySelector("#row-value")
@@ -46,6 +97,7 @@ function createRow() {
         let newLight = document.createElement("button");
         newLight.className = "light";
         newRow.appendChild(newLight);
+        lightArray.push(newLight);
     }
 
     document.querySelector("#christmas-lights").appendChild(newRow);
@@ -55,4 +107,8 @@ function createRow() {
 function deleteRow() {
     let rowArray = document.querySelectorAll(".row");
     rowArray[rowArray.length - 1].remove();
+
+    for (let i = 0; i < 5; i++) {
+        lightArray.pop();
+    }
 }
