@@ -22,9 +22,9 @@ body {
     border-radius: 100%;
     margin-right: 5%;
     margin-bottom: 2%;
-    border:none;
-
-    box-shadow: 0px 0px 75px 25px red;
+    border: none;
+    
+    box-shadow: 0px 0px 75px 0px red;
 
     background-color: red;
     width: 50px;

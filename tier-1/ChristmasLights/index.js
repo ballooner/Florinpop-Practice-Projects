@@ -1,12 +1,15 @@
 //Light class to hold information for individual lights
 class Light {
-    #currentIntensity = 0;
+    #currentIntensity;
+    #increasing
 
     constructor(buttonElement, color = "red", size = 50, maxIntensity = 25) {
         this.buttonElement = buttonElement;
         this.color = color;
         this.size = size;
         this.maxIntensity = maxIntensity;
+        this.currentIntensity = 20;
+        this.increasing = true;
     }
 
     getColor() {
@@ -15,6 +18,7 @@ class Light {
 
     setColor(color) {
         this.color = color;
+        this.buttonElement.style.setProperty("background-color:" + color);
     }
 
     getSize() {
@@ -23,6 +27,7 @@ class Light {
 
     setSize(size) {
         this.size = size;
+        this.buttonElement.style.setProperty("width:" + size + ";height=" + size);
     }
 
     getMaxIntensity() {
@@ -33,15 +38,28 @@ class Light {
         this.maxIntensity = maxIntensity;
     }
 
-    //Method to slowly increase the intensity and set box-shadow styling
-    increaseIntensity() {
-        currentIntensity += maxIntensity / interval;
-        this.buttonElement.style.setProperty("box-shadow", "0px 0px 75px " + currentIntensity);
+    //Method to slowly increase/decrease the intensity and set box-shadow styling
+    changeIntensity() {
+        if (this.currentIntensity >= this.maxIntensity) {
+            this.increasing = false;
+        } else if (this.currentIntensity <= 0) {
+            this.increasing = true;
+        }
+        
+        if (this.increasing) {
+            this.currentIntensity += this.maxIntensity / interval;
+        } else if (!this.increasing) {
+            this.currentIntensity -= this.maxIntensity / interval;
+        }
+        
+
+        this.buttonElement.style.boxShadow = `0px 0px 75px ${this.currentIntensity}px ${this.color}`;
+        console.log(this.increasing);
     }
 }
 
-//Create the array that holds light classes
-//and create classes for already existing light elements in DOM
+//Create the array that holds light objects
+//and create objects for already existing light elements in DOM
 let lightArray = [];
 let currLights = document.querySelectorAll(".light");
 
@@ -97,7 +115,7 @@ function createRow() {
         let newLight = document.createElement("button");
         newLight.className = "light";
         newRow.appendChild(newLight);
-        lightArray.push(newLight);
+        lightArray.push(new Light(newLight));
     }
 
     document.querySelector("#christmas-lights").appendChild(newRow);
@@ -112,3 +130,12 @@ function deleteRow() {
         lightArray.pop();
     }
 }
+
+//Timer for increase/decrease of lights
+function changeBrightness() {
+    for (let i = 0; i < lightArray.length; i++) {
+        lightArray[i].changeIntensity();
+    }
+}
+
+window.setInterval(changeBrightness, interval * 100);
