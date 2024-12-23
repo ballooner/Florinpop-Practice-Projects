@@ -54,7 +54,6 @@ class Light {
         
 
         this.buttonElement.style.boxShadow = `0px 0px 75px ${this.currentIntensity}px ${this.color}`;
-        console.log(this.increasing);
     }
 }
 
@@ -139,3 +138,4 @@ function changeBrightness() {
 }
 
 window.setInterval(changeBrightness, interval * 100);
+
