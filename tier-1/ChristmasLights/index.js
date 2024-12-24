@@ -137,5 +137,16 @@ function changeBrightness() {
     }
 }
 
-window.setInterval(changeBrightness, interval * 100);
+let timer = window.setInterval(changeBrightness, interval * 100);
 
+//Functionality for start/stop button
+let toggleButton = document.querySelector("#start-stop");
+
+toggleButton.addEventListener("click", (e) => {
+    if (timer != null) {
+        clearInterval(timer);
+        timer = null;
+    } else {
+        timer = window.setInterval(changeBrightness, interval * 100);
+    }
+});
