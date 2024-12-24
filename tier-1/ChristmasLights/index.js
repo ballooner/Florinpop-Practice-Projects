@@ -3,13 +3,17 @@ class Light {
     #currentIntensity;
     #increasing
 
-    constructor(buttonElement, color = "red", size = 50, maxIntensity = 25) {
+    constructor(buttonElement, color = "#FF0000", size = 50, maxIntensity = 25) {
         this.buttonElement = buttonElement;
         this.color = color;
         this.size = size;
         this.maxIntensity = maxIntensity;
         this.currentIntensity = 20;
         this.increasing = true;
+
+        this.buttonElement.addEventListener("click", (e) => {
+            updateSelectors(this);
+        });
     }
 
     getColor() {
@@ -18,7 +22,7 @@ class Light {
 
     setColor(color) {
         this.color = color;
-        this.buttonElement.style.setProperty("background-color:" + color);
+        this.buttonElement.style.setProperty("background-color", color);
     }
 
     getSize() {
@@ -27,7 +31,8 @@ class Light {
 
     setSize(size) {
         this.size = size;
-        this.buttonElement.style.setProperty("width:" + size + ";height=" + size);
+        this.buttonElement.style.setProperty("width", size + "px");
+        this.buttonElement.style.setProperty("height", size + "px");
     }
 
     getMaxIntensity() {
@@ -66,7 +71,7 @@ for (let i = 0; i < currLights.length; i++) {
     lightArray.push(new Light(currLights[i]));
 }
 
-//Declare row element variables and make HTML output row range values
+//Row range functionality
 let rowRange = document.querySelector("#row-input");
 let rowOutput = document.querySelector("#row-value")
 let rows = rowRange.value;
@@ -78,12 +83,12 @@ rowRange.addEventListener("input", (e) => {
     changeRows();
 });
 
-//Declare interval element variables and make HTML output interval range values
+//Interval range functionality
 let intervalRange = document.querySelector("#interval-input");
 let intervalOutput = document.querySelector("#interval-value")
 let interval = intervalRange.value;
 
-intervalOutput.textContent = intervalRange.value;
+intervalOutput.textContent = interval;
 intervalRange.addEventListener("input", (e) => {
     interval = Number(e.target.value);
     intervalOutput.textContent = interval;
@@ -105,7 +110,7 @@ function changeRows() {
     }
 }
 
-//Create a new row and add it to the DOM
+//Functions to create/delete rows of lights
 function createRow() {
     let newRow = document.createElement("div");
     newRow.className = "row"
@@ -120,7 +125,6 @@ function createRow() {
     document.querySelector("#christmas-lights").appendChild(newRow);
 }
 
-//Delete a row from the DOM
 function deleteRow() {
     let rowArray = document.querySelectorAll(".row");
     rowArray[rowArray.length - 1].remove();
@@ -150,3 +154,50 @@ toggleButton.addEventListener("click", (e) => {
         timer = window.setInterval(changeBrightness, interval * 100);
     }
 });
+
+/* Customize specific lights */
+let currentLight = null;
+
+let colorSelector = document.querySelector("#color-input");
+
+colorSelector.addEventListener("input", (e) => {
+    if (currentLight !== null) {
+        currentLight.setColor(e.target.value);
+    }
+});
+
+let intensitySelector = document.querySelector("#intensity-input");
+let intensityOutput = document.querySelector("#intensity-value");
+
+intensitySelector.addEventListener("input", (e) => {
+    intensityOutput.value = e.target.value;
+
+    if (currentLight != null) {
+        currentLight.setMaxIntensity(e.target.value);
+    }
+});
+
+let sizeSelector = document.querySelector("#size-input");
+let sizeOutput = document.querySelector("#size-value");
+
+sizeSelector.addEventListener("input", (e) => {
+    sizeOutput.value = e.target.value;
+
+    if (currentLight != null) {
+        currentLight.setSize(e.target.value);
+    }
+});
+
+//Function to update selectors
+function updateSelectors(lightObject) {
+    currentLight = lightObject;
+
+    colorSelector.value = lightObject.getColor();
+
+    intensitySelector.value = lightObject.getMaxIntensity();
+    intensityOutput.value = lightObject.getMaxIntensity();
+
+    sizeSelector.value = lightObject.getSize();
+    sizeOutput.value = lightObject.getSize();
+}
+
