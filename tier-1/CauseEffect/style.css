@@ -1,0 +1,30 @@
+body {
+    background-color: #1b1b1b;
+    color: white;
+}
+
+ol {
+    list-style-type: none;
+}
+
+#container {
+    display: flex;
+}
+
+#people-container {
+    width: 10vw;
+}
+
+.person {
+    background: none;
+    border: none;
+    color: white;
+}
+
+.person:hover {
+    background-color: blue;
+}
+
+.active {
+    background-color: red;
+}
